@@ -3,13 +3,13 @@ const db = require("../db/queries");
 
 const indexRouter = Router();
   
-indexRouter.get("/", (req, res) => {
-  res.render("index", { title: "Mini Messageboard", messages: db.getAllMessages() });
+indexRouter.get("/", async (req, res) => {
+  res.render("index", { title: "Mini Messageboard", messages: await db.getAllMessages() });
 });
 
-indexRouter.get("/messages/:id", (req, res) => {
+indexRouter.get("/messages/:id", async (req, res) => {
   const id = req.params.id;
-  const message = db.getMessageById(id);
+  const message = await db.getMessageById(id);
   res.render("message", { message });
 });
 
@@ -17,10 +17,10 @@ indexRouter.get("/new", (req, res) => {
   res.render("form");
 });
 
-indexRouter.post("/new", (req, res) => {
+indexRouter.post("/new", async (req, res) => {
   const text = req.body.text;
   const user = req.body.user;
-  db.createMessage(text, user, new Date());
+  await db.createMessage(text, user, new Date());
   res.redirect("/");
 });
 
