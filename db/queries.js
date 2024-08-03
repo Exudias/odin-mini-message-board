@@ -10,7 +10,7 @@ async function getMessageById(id) {
 }
 
 async function createMessage(text, user) {
-    await pool.query("INSERT INTO messages (text, user) VALUES ($1, $2)", [text, user]);
+    await pool.query("INSERT INTO messages (text, username) VALUES ($1, $2)", [text, user]);
 }
 
 module.exports = {
